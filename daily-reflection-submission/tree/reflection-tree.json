@@ -1,0 +1,534 @@
+{
+  "title": "Daily Reflection Tree",
+  "version": "1.0.0",
+  "startNode": "START",
+  "axes": {
+    "axis1": {
+      "positive": "agency-forward",
+      "negative": "circumstance-led"
+    },
+    "axis2": {
+      "positive": "contribution-first",
+      "negative": "recognition-first"
+    },
+    "axis3": {
+      "positive": "other-aware",
+      "negative": "self-protective"
+    }
+  },
+  "nodes": [
+    {
+      "id": "START",
+      "type": "start",
+      "text": "Good evening. This is a short, structured reflection. No essays. Just honest choices.",
+      "next": "OPEN_WORD"
+    },
+    {
+      "id": "OPEN_WORD",
+      "type": "question",
+      "text": "How would you describe today in one word?",
+      "options": [
+        {
+          "id": "tough",
+          "label": "Tough"
+        },
+        {
+          "id": "productive",
+          "label": "Productive"
+        },
+        {
+          "id": "mixed",
+          "label": "Mixed"
+        },
+        {
+          "id": "frustrating",
+          "label": "Frustrating"
+        }
+      ],
+      "next": "A1_ROUTE"
+    },
+    {
+      "id": "A1_ROUTE",
+      "type": "decision",
+      "rules": [
+        {
+          "whenAnswerIn": {
+            "node": "OPEN_WORD",
+            "values": [
+              "productive",
+              "mixed"
+            ]
+          },
+          "goTo": "A1_Q_EVENT_HIGH"
+        },
+        {
+          "whenAnswerIn": {
+            "node": "OPEN_WORD",
+            "values": [
+              "tough",
+              "frustrating"
+            ]
+          },
+          "goTo": "A1_Q_EVENT_LOW"
+        }
+      ]
+    },
+    {
+      "id": "A1_Q_EVENT_HIGH",
+      "type": "question",
+      "text": "When the day worked better, what best explains it?",
+      "options": [
+        {
+          "id": "prepared",
+          "label": "I prepared and prioritized well",
+          "signals": [
+            "axis1:positive"
+          ]
+        },
+        {
+          "id": "coordinated",
+          "label": "The team and I coordinated well",
+          "signals": [
+            "axis1:positive"
+          ]
+        },
+        {
+          "id": "lucky",
+          "label": "It mostly worked out by chance",
+          "signals": [
+            "axis1:negative"
+          ]
+        },
+        {
+          "id": "carried",
+          "label": "Someone else carried the situation",
+          "signals": [
+            "axis1:negative"
+          ]
+        }
+      ],
+      "next": "A1_Q_SETBACK"
+    },
+    {
+      "id": "A1_Q_EVENT_LOW",
+      "type": "question",
+      "text": "When the day got difficult, what did you do first?",
+      "options": [
+        {
+          "id": "control",
+          "label": "I looked for one thing I could control",
+          "signals": [
+            "axis1:positive"
+          ]
+        },
+        {
+          "id": "waited",
+          "label": "I waited for direction",
+          "signals": [
+            "axis1:negative"
+          ]
+        },
+        {
+          "id": "reacted",
+          "label": "I kept reacting without a plan",
+          "signals": [
+            "axis1:negative"
+          ]
+        },
+        {
+          "id": "adapted",
+          "label": "I changed approach and tried again",
+          "signals": [
+            "axis1:positive"
+          ]
+        }
+      ],
+      "next": "A1_Q_SETBACK"
+    },
+    {
+      "id": "A1_Q_SETBACK",
+      "type": "question",
+      "text": "Think about the hardest moment today. Which sentence is truest?",
+      "options": [
+        {
+          "id": "choice",
+          "label": "I still had a choice in how to respond",
+          "signals": [
+            "axis1:positive"
+          ]
+        },
+        {
+          "id": "boxed",
+          "label": "Other people's decisions boxed me in",
+          "signals": [
+            "axis1:negative"
+          ]
+        },
+        {
+          "id": "help",
+          "label": "I asked for help and kept moving",
+          "signals": [
+            "axis1:positive"
+          ]
+        },
+        {
+          "id": "checkout",
+          "label": "I mentally checked out because it felt pointless",
+          "signals": [
+            "axis1:negative"
+          ]
+        }
+      ],
+      "next": "A1_REFLECT_ROUTE"
+    },
+    {
+      "id": "A1_REFLECT_ROUTE",
+      "type": "decision",
+      "rules": [
+        {
+          "whenDominantEquals": {
+            "axis": "axis1",
+            "value": "positive"
+          },
+          "goTo": "A1_R_INTERNAL"
+        },
+        {
+          "whenDominantEquals": {
+            "axis": "axis1",
+            "value": "negative"
+          },
+          "goTo": "A1_R_EXTERNAL"
+        },
+        {
+          "whenDominantEquals": {
+            "axis": "axis1",
+            "value": "tie"
+          },
+          "goTo": "A1_R_MIXED"
+        }
+      ]
+    },
+    {
+      "id": "A1_R_INTERNAL",
+      "type": "reflection",
+      "text": "You did not treat the day as something that only happened to you. Even when the mood was \"{OPEN_WORD.answerLabel}\", you kept looking for a move. Agency is not control over everything. It is control over your next honest step.",
+      "next": "BRIDGE_1_2_A"
+    },
+    {
+      "id": "A1_R_EXTERNAL",
+      "type": "reflection",
+      "text": "Your answers lean toward pressure coming from outside you. That may be accurate. But external pressure and personal agency are not opposites. The useful question is smaller: where was your next move, even inside the mess?",
+      "next": "BRIDGE_1_2_B"
+    },
+    {
+      "id": "A1_R_MIXED",
+      "type": "reflection",
+      "text": "You saw both realities today. Some of the day was shaped by circumstances. Some of it was shaped by your response. That is usually the truth. Reflection starts when those two are separated cleanly.",
+      "next": "BRIDGE_1_2_C"
+    },
+    {
+      "id": "BRIDGE_1_2_A",
+      "type": "bridge",
+      "text": "Now shift the lens. Not from what happened, but from what you gave.",
+      "next": "A2_OPEN"
+    },
+    {
+      "id": "BRIDGE_1_2_B",
+      "type": "bridge",
+      "text": "Keep the same day in mind. Now shift from control to contribution.",
+      "next": "A2_OPEN"
+    },
+    {
+      "id": "BRIDGE_1_2_C",
+      "type": "bridge",
+      "text": "Hold both truths. Circumstances mattered. Your response mattered too. Now ask what you brought to the day.",
+      "next": "A2_OPEN"
+    },
+    {
+      "id": "A2_OPEN",
+      "type": "question",
+      "text": "In one interaction today, what did you mainly bring?",
+      "options": [
+        {
+          "id": "helped",
+          "label": "I helped without being asked",
+          "signals": [
+            "axis2:positive"
+          ]
+        },
+        {
+          "id": "taught",
+          "label": "I shared context or taught someone something",
+          "signals": [
+            "axis2:positive"
+          ]
+        },
+        {
+          "id": "underrecognized",
+          "label": "I kept noticing that my effort was under-recognized",
+          "signals": [
+            "axis2:negative"
+          ]
+        },
+        {
+          "id": "scorekeeping",
+          "label": "I kept score of who was doing more work",
+          "signals": [
+            "axis2:negative"
+          ]
+        }
+      ],
+      "next": "A2_Q_EXPECTATION"
+    },
+    {
+      "id": "A2_Q_EXPECTATION",
+      "type": "question",
+      "text": "What bothered you more today?",
+      "options": [
+        {
+          "id": "unowned",
+          "label": "A task slowed the team because no one owned it",
+          "signals": [
+            "axis2:positive"
+          ]
+        },
+        {
+          "id": "credit",
+          "label": "I did not get enough credit for my effort",
+          "signals": [
+            "axis2:negative"
+          ]
+        },
+        {
+          "id": "hesitated",
+          "label": "Someone needed support and I hesitated to step in",
+          "signals": [
+            "axis2:positive"
+          ]
+        },
+        {
+          "id": "notmine",
+          "label": "I had to do work that should not have been mine",
+          "signals": [
+            "axis2:negative"
+          ]
+        }
+      ],
+      "next": "A2_ROUTE"
+    },
+    {
+      "id": "A2_ROUTE",
+      "type": "decision",
+      "rules": [
+        {
+          "whenDominantEquals": {
+            "axis": "axis2",
+            "value": "positive"
+          },
+          "goTo": "A2_R_CONTRIBUTION"
+        },
+        {
+          "whenDominantEquals": {
+            "axis": "axis2",
+            "value": "negative"
+          },
+          "goTo": "A2_R_ENTITLEMENT"
+        },
+        {
+          "whenDominantEquals": {
+            "axis": "axis2",
+            "value": "tie"
+          },
+          "goTo": "A2_R_MIXED"
+        }
+      ]
+    },
+    {
+      "id": "A2_R_CONTRIBUTION",
+      "type": "reflection",
+      "text": "Your answers lean toward contribution. You were watching for what the work or the team needed, not only for what you were owed. That stance usually creates trust before it creates recognition.",
+      "next": "BRIDGE_2_3_A"
+    },
+    {
+      "id": "A2_R_ENTITLEMENT",
+      "type": "reflection",
+      "text": "Your attention stayed close to fairness, credit, and task boundaries. That is human. It also narrows your room to lead. Contribution starts when the question changes from \"Was I seen?\" to \"What did the work need from me?\"",
+      "next": "BRIDGE_2_3_B"
+    },
+    {
+      "id": "A2_R_MIXED",
+      "type": "reflection",
+      "text": "You were split between giving and keeping score. Most people are. The useful move is not guilt. It is noticing which moments made you larger and which moments made you smaller.",
+      "next": "BRIDGE_2_3_C"
+    },
+    {
+      "id": "BRIDGE_2_3_A",
+      "type": "bridge",
+      "text": "One more shift. Move from contribution to radius. Who else fits inside your frame of concern?",
+      "next": "A3_OPEN"
+    },
+    {
+      "id": "BRIDGE_2_3_B",
+      "type": "bridge",
+      "text": "Now widen the frame. Beyond credit and tasks, who else sat inside your concern today?",
+      "next": "A3_OPEN"
+    },
+    {
+      "id": "BRIDGE_2_3_C",
+      "type": "bridge",
+      "text": "Hold the tension between giving and receiving. Then widen the frame. Reflection deepens when the circle grows.",
+      "next": "A3_OPEN"
+    },
+    {
+      "id": "A3_OPEN",
+      "type": "question",
+      "text": "When you replay the day, whose outcome sits closest to your mind?",
+      "options": [
+        {
+          "id": "me",
+          "label": "My own workload and stress",
+          "signals": [
+            "axis3:negative"
+          ]
+        },
+        {
+          "id": "team",
+          "label": "My team's ability to finish well",
+          "signals": [
+            "axis3:positive"
+          ]
+        },
+        {
+          "id": "colleague",
+          "label": "One colleague who clearly needed support",
+          "signals": [
+            "axis3:positive"
+          ]
+        },
+        {
+          "id": "customer",
+          "label": "The customer or end user affected by our work",
+          "signals": [
+            "axis3:positive"
+          ]
+        }
+      ],
+      "next": "A3_Q_SCOPE"
+    },
+    {
+      "id": "A3_Q_SCOPE",
+      "type": "question",
+      "text": "If tomorrow went better, which payoff would matter most?",
+      "options": [
+        {
+          "id": "control",
+          "label": "I would feel more in control",
+          "signals": [
+            "axis3:negative"
+          ]
+        },
+        {
+          "id": "smoothteam",
+          "label": "My team would have a smoother day",
+          "signals": [
+            "axis3:positive"
+          ]
+        },
+        {
+          "id": "lessblocked",
+          "label": "Someone else would be less blocked because of me",
+          "signals": [
+            "axis3:positive"
+          ]
+        },
+        {
+          "id": "cleanerexp",
+          "label": "The customer would get a cleaner experience",
+          "signals": [
+            "axis3:positive"
+          ]
+        }
+      ],
+      "next": "A3_Q_RESPONSE"
+    },
+    {
+      "id": "A3_Q_RESPONSE",
+      "type": "question",
+      "text": "What kind of action feels most meaningful now?",
+      "options": [
+        {
+          "id": "protect",
+          "label": "Protect my own time first",
+          "signals": [
+            "axis3:negative"
+          ]
+        },
+        {
+          "id": "dependency",
+          "label": "Clear one dependency for the team",
+          "signals": [
+            "axis3:positive"
+          ]
+        },
+        {
+          "id": "checkin",
+          "label": "Check in with the person who seemed stretched",
+          "signals": [
+            "axis3:positive"
+          ]
+        },
+        {
+          "id": "downstream",
+          "label": "Fix one issue that affects the customer downstream",
+          "signals": [
+            "axis3:positive"
+          ]
+        }
+      ],
+      "next": "A3_ROUTE"
+    },
+    {
+      "id": "A3_ROUTE",
+      "type": "decision",
+      "rules": [
+        {
+          "whenDominantEquals": {
+            "axis": "axis3",
+            "value": "positive"
+          },
+          "goTo": "A3_R_OTHER"
+        },
+        {
+          "whenDominantEquals": {
+            "axis": "axis3",
+            "value": "negative"
+          },
+          "goTo": "A3_R_SELF"
+        }
+      ]
+    },
+    {
+      "id": "A3_R_SELF",
+      "type": "reflection",
+      "text": "Your frame stayed close to self-protection. Sometimes that is necessary. But pain at work grows when the circle shrinks. Meaning usually returns when your effort connects to someone beyond you.",
+      "next": "SUMMARY"
+    },
+    {
+      "id": "A3_R_OTHER",
+      "type": "reflection",
+      "text": "Your frame widened beyond yourself. You were not only tracking your own day. You were tracking impact. That outward turn often reduces noise because it gives effort a destination.",
+      "next": "SUMMARY"
+    },
+    {
+      "id": "SUMMARY",
+      "type": "summary",
+      "text": "Today began as \"{OPEN_WORD.answerLabel}\". Across the reflection, you leaned {axis1.dominantLabel} on agency, {axis2.dominantLabel} on contribution, and {axis3.dominantLabel} on radius. The next honest move is small: repeat one choice tomorrow that makes your circle wider than it was today.",
+      "next": "END"
+    },
+    {
+      "id": "END",
+      "type": "end",
+      "text": "Session complete. See you tomorrow."
+    }
+  ]
+}
